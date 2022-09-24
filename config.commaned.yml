@@ -1,0 +1,22 @@
+version: 2.1
+
+commands:
+  print_pipeline_id:
+   Parameters:
+    id:
+       type: string
+    steps:
+      - run: echo << parameter.id>>
+
+jobs:
+  my_job:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - print_pipeline_id:
+           id: <<pipeline.id>>
+
+workflows:
+  my_workflow:
+    jobs:
+      - my_job
